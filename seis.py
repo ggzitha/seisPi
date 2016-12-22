@@ -1,8 +1,9 @@
+#! /usr/bin/python
+
 import time
 import datetime
+import os
 import Adafruit_ADS1x15
-
-dir = "/home/pi/Desktop/seisdata/"
 
 # ADC instance members
 adc = Adafruit_ADS1x15.ADS1115()
@@ -12,17 +13,21 @@ MULTIPLIER = 0.015625;
 # Seismograph members
 sourceName = "AmySeis"
 samplesPerSecond = 20
-samplesPerFile = 86400 / 24 * samplesPerSecond
-dateStamp = time.time()
+samplesPerFile = 3600 * samplesPerSecond
 format = "SLIST"
-type = "FLOAT"
+type = "INTEGER"
 units = "COUNT"
 
-fileName = dir + sourceName + "_" + '{0}'.format(dateStamp)
+# Directory organization
+dir = "/home/pi/Desktop/AmySeis/data/"
+dir = dir + datetime.datetime.now().strftime('%Y-%m-%d') + "/"
+if not os.path.exists(dir):
+	os.makedirs(dir)
+fileName = dir + sourceName + "_" + datetime.datetime.now().strftime('%H')
 
 # Open file to output to
 file = open(fileName + ".txt", "w+")
-file.write("TIMESERIES _Amy__Z_, %s samples, %s sps, %s, %s, %s, %s\n" % (samplesPerFile, samplesPerSecond, datetime.datetime.utcnow().isoformat(), format, type, units))
+file.write("TIMESERIES _AMY__BHZ_, %s samples, %s sps, %s, %s, %s, %s\n" % (samplesPerFile, samplesPerSecond, datetime.datetime.now().isoformat(), format, type, units))
 file.close()
 
 for i in range(0, samplesPerFile / 6): # one day 288000
