@@ -12,7 +12,7 @@ GAIN = 16
 
 # Seismograph members
 sourceName = "AmySeis"
-samplesPerSecond = 20
+samplesPerSecond = 40
 samplesPerFile = 3600 * samplesPerSecond
 format = "SLIST"
 type = "INTEGER"
