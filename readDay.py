@@ -29,7 +29,7 @@ def main(argv):
 
 	# Plotting
 	data = read(outfile)
-	data.plot(type='dayplot')
+	data.plot(type='dayplot', vertical_scaling_range=3000)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])

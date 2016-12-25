@@ -19,18 +19,18 @@ type = "INTEGER"
 units = "COUNT"
 
 # Directory organization
-dir = "/home/pi/Desktop/AmySeis/data/"
+dir = "/home/pi/Desktop/" + sourceName + "/data/"
 dir = dir + datetime.datetime.now().strftime('%Y-%m-%d') + "/"
 if not os.path.exists(dir):
 	os.makedirs(dir)
-fileName = dir + sourceName + "_" + datetime.datetime.now().strftime('%H')
+fileName = dir + datetime.datetime.now().strftime('%H')
 
 # Open file to output to
 file = open(fileName + ".txt", "w+")
 file.write("TIMESERIES _AMY__BHZ_, %s samples, %s sps, %s, %s, %s, %s\n" % (samplesPerFile, samplesPerSecond, datetime.datetime.now().isoformat(), format, type, units))
 file.close()
 
-for i in range(0, samplesPerFile / 6): # one day 288000
+for i in range(0, samplesPerFile / 6):
 	file = open(fileName + ".txt", "a+")
 
 	for j in range(0, 6):
