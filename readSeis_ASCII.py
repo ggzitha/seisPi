@@ -2,7 +2,7 @@
 
 from obspy.core import read
 from subprocess import call
-import sys, getopt, os
+import sys, getopt, os, obspy
 
 def main(argv):
 	try:
@@ -21,6 +21,7 @@ def main(argv):
 		elif opt in ("--hour"):
 			infile = arg + ".txt"
 			data = read(("data/" + date + "/" + infile))
+			data.filter('lowpass', freq=1.0, corners=4, zerophase=True)
 			data.plot()
 			sys.exit()
 
@@ -31,6 +32,7 @@ def main(argv):
 
 	# Plotting
 	data = read(outfile)
+	data.filter('lowpass', freq=1.0, corners=4, zerophase=True)
 	data.plot(type='dayplot', vertical_scaling_range=5000)
 
 if __name__ == "__main__":

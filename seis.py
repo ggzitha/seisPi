@@ -7,8 +7,8 @@ import Adafruit_ADS1x15
 
 # ADC instance members
 adc = Adafruit_ADS1x15.ADS1115()
-GAIN = 8
-MULTIPLIER = 0.015625;
+GAIN = 16
+#MULTIPLIER = # 8 -> 0.015625;
 
 # Seismograph members
 sourceName = "AmySeis"
